@@ -98,5 +98,20 @@ namespace gk_p3
                     return this.BlackToColor(curve);
             }
         }
+
+        public static Color GetColorByEnum(Settings.CMYK smykColor)
+        {
+            switch(smykColor)
+            {
+                case Settings.CMYK.CYAN:
+                    return Color.Cyan;
+                case Settings.CMYK.MAGENTA:
+                    return Color.Magenta;
+                case Settings.CMYK.YELLOW:
+                    return Color.Yellow;
+                default:
+                    return Color.Black;
+            }
+        }
     }
 }

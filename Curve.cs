@@ -142,18 +142,16 @@ namespace gk_p3
             );
         }
 
-        public void Draw(PaintEventArgs e)
+        public void Draw(PaintEventArgs e, Pen pen, bool drawPoints = false)
         {
-            // Create pen.
-            Pen pen = new Pen(Color.Black, 1);
-
             List<Point> curvePoints = new List<Point>();
 
             for (double t = 0.0; t <= 1.0; t += 0.001)
                 curvePoints.Add(new Point((int)this.GetX(t), (int)this.GetY(t)));
 
-            foreach (var point in this.Points)
-                e.Graphics.DrawEllipse(pen, point.X - 5, point.Y - 5, 10, 10);
+            if (drawPoints)
+                foreach (var point in this.Points)
+                    e.Graphics.DrawEllipse(pen, point.X - 5, point.Y - 5, 10, 10);
 
             // Draw arc to screen.
             e.Graphics.DrawLines(pen, curvePoints.ToArray());

@@ -30,6 +30,7 @@ namespace gk_p3
             this.cmykWrappers.Add(Settings.CMYK.BLACK, this.blackWrapper);
 
             this.mainImage = (Bitmap)Bitmap.FromFile(@"C:\Users\RazorMeister\Downloads\mountain-9.jpg");
+            //this.mainImage.Dispose();
             this.mainImageWrapper.Image = this.mainImage;
 
             this.SetImages();
@@ -65,49 +66,60 @@ namespace gk_p3
         {
             Settings.CMYK color = paramColor ?? this.currentColor;
 
-            Bitmap cmykColorBmp = new Bitmap(this.mainImage.Width, this.mainImage.Height);
+            FastBitmap cmykColorBmp = new FastBitmap(this.mainImage.Width, this.mainImage.Height);
 
-            for (int i = 1; i < this.mainImage.Width; i++)
+            int height = this.mainImage.Height;
+
+            Parallel.For(1, this.mainImage.Width, (i) =>
             {
-                for (int j = 1; j < this.mainImage.Height; j++)
-                {
+                for (int j = 1; j < height; j++)
                     cmykColorBmp.SetPixel(i, j, this.cmykImage[i, j].ComponentToColor(color, this.curves[color]));
-                }
-            }
+            });
 
-            this.cmykWrappers[color].Image = cmykColorBmp;
+            this.cmykWrappers[color].Image?.Dispose();
+            this.cmykWrappers[color].Image = new Bitmap(cmykColorBmp.Bitmap);
             
             if (color == this.currentColor)
-                this.currentColorImageWrapper.Image = cmykColorBmp;
+            {
+                this.currentColorImageWrapper.Image?.Dispose();
+                this.currentColorImageWrapper.Image = new Bitmap(cmykColorBmp.Bitmap);
+            }
 
-            Debug.WriteLine("DONE");
+            cmykColorBmp.Dispose();
+
+            //Debug.WriteLine("DONE");
         }
 
         private void UpdateResultImage()
         {
-            Bitmap resultBmp = new Bitmap(this.mainImage.Width, this.mainImage.Height);
+            FastBitmap resultBmp = new FastBitmap(this.mainImage.Width, this.mainImage.Height);
 
-            for (int i = 1; i < this.mainImage.Width; i++)
+            int height = this.mainImage.Height;
+
+            Parallel.For(1, this.mainImage.Width, (i) =>
             {
-                for (int j = 1; j < this.mainImage.Height; j++)
-                {
+                for (int j = 1; j < height; j++)
                     resultBmp.SetPixel(i, j, this.cmykImage[i, j].ToColor(
                         this.curves[Settings.CMYK.CYAN],
                         this.curves[Settings.CMYK.MAGENTA],
                         this.curves[Settings.CMYK.YELLOW],
                         this.curves[Settings.CMYK.BLACK]
                     ));
-                }
-            }
+            });
 
-            this.resultImageWrapper.Image = resultBmp;
+            this.resultImageWrapper.Image?.Dispose();
+            this.resultImageWrapper.Image = new Bitmap(resultBmp.Bitmap);
+            resultBmp.Dispose();
             Debug.WriteLine("DONE RESULT");
         }
 
         private void curvesWrapper_Paint(object sender, PaintEventArgs e)
         {
-            foreach (var curve in this.curves.Values)
-                curve.Draw(e);
+            foreach (var cmykColor in this.curves.Keys)  
+                if (cmykColor != this.currentColor)
+                    this.curves[cmykColor].Draw(e, new Pen(CmykColor.GetColorByEnum(cmykColor), 1), false);
+
+            this.curves[this.currentColor].Draw(e, new Pen(CmykColor.GetColorByEnum(this.currentColor), 1), true);
         }
 
         private void curvesWrapper_MouseDown(object sender, MouseEventArgs e)
@@ -175,6 +187,7 @@ namespace gk_p3
         {
             this.currentColor = color;
             this.moving = false;
+            this.curvesWrapper.Invalidate();
         }
     }
 }
