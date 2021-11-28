@@ -121,6 +121,7 @@
             // blackRadioButton
             // 
             this.blackRadioButton.AutoSize = true;
+            this.blackRadioButton.Cursor = System.Windows.Forms.Cursors.Hand;
             this.blackRadioButton.Location = new System.Drawing.Point(16, 95);
             this.blackRadioButton.Name = "blackRadioButton";
             this.blackRadioButton.Size = new System.Drawing.Size(71, 19);
@@ -132,6 +133,7 @@
             // yellowRadioButton
             // 
             this.yellowRadioButton.AutoSize = true;
+            this.yellowRadioButton.Cursor = System.Windows.Forms.Cursors.Hand;
             this.yellowRadioButton.Location = new System.Drawing.Point(16, 70);
             this.yellowRadioButton.Name = "yellowRadioButton";
             this.yellowRadioButton.Size = new System.Drawing.Size(59, 19);
@@ -143,6 +145,7 @@
             // magentaRadioButton
             // 
             this.magentaRadioButton.AutoSize = true;
+            this.magentaRadioButton.Cursor = System.Windows.Forms.Cursors.Hand;
             this.magentaRadioButton.Location = new System.Drawing.Point(16, 45);
             this.magentaRadioButton.Name = "magentaRadioButton";
             this.magentaRadioButton.Size = new System.Drawing.Size(72, 19);
@@ -155,6 +158,7 @@
             // 
             this.cyanRadioButton.AutoSize = true;
             this.cyanRadioButton.Checked = true;
+            this.cyanRadioButton.Cursor = System.Windows.Forms.Cursors.Hand;
             this.cyanRadioButton.Location = new System.Drawing.Point(16, 20);
             this.cyanRadioButton.Name = "cyanRadioButton";
             this.cyanRadioButton.Size = new System.Drawing.Size(52, 19);
@@ -310,6 +314,7 @@
             // blackWhiteCheckbox
             // 
             this.blackWhiteCheckbox.AutoSize = true;
+            this.blackWhiteCheckbox.Cursor = System.Windows.Forms.Cursors.Hand;
             this.blackWhiteCheckbox.Location = new System.Drawing.Point(17, 22);
             this.blackWhiteCheckbox.Name = "blackWhiteCheckbox";
             this.blackWhiteCheckbox.Size = new System.Drawing.Size(109, 19);
@@ -320,6 +325,7 @@
             // 
             // saveImageButton
             // 
+            this.saveImageButton.Cursor = System.Windows.Forms.Cursors.Hand;
             this.saveImageButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.saveImageButton.Location = new System.Drawing.Point(6, 91);
             this.saveImageButton.Name = "saveImageButton";
@@ -327,9 +333,11 @@
             this.saveImageButton.TabIndex = 1;
             this.saveImageButton.Text = "Save image";
             this.saveImageButton.UseVisualStyleBackColor = true;
+            this.saveImageButton.Click += new System.EventHandler(this.saveImageButton_Click);
             // 
             // importImageButton
             // 
+            this.importImageButton.Cursor = System.Windows.Forms.Cursors.Hand;
             this.importImageButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.importImageButton.Location = new System.Drawing.Point(6, 59);
             this.importImageButton.Name = "importImageButton";
@@ -353,6 +361,7 @@
             // 
             // importCurvesButton
             // 
+            this.importCurvesButton.Cursor = System.Windows.Forms.Cursors.Hand;
             this.importCurvesButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.importCurvesButton.Location = new System.Drawing.Point(6, 59);
             this.importCurvesButton.Name = "importCurvesButton";
@@ -367,6 +376,7 @@
             this.showAllCurvesCheckbox.AutoSize = true;
             this.showAllCurvesCheckbox.Checked = true;
             this.showAllCurvesCheckbox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.showAllCurvesCheckbox.Cursor = System.Windows.Forms.Cursors.Hand;
             this.showAllCurvesCheckbox.Location = new System.Drawing.Point(19, 22);
             this.showAllCurvesCheckbox.Name = "showAllCurvesCheckbox";
             this.showAllCurvesCheckbox.Size = new System.Drawing.Size(107, 19);
@@ -377,6 +387,7 @@
             // 
             // saveCurvesButton
             // 
+            this.saveCurvesButton.Cursor = System.Windows.Forms.Cursors.Hand;
             this.saveCurvesButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.saveCurvesButton.Location = new System.Drawing.Point(6, 91);
             this.saveCurvesButton.Name = "saveCurvesButton";
@@ -402,8 +413,13 @@
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.mainImageWrapper);
             this.Controls.Add(this.curvesWrapper);
+            this.MaximizeBox = false;
+            this.MaximumSize = new System.Drawing.Size(1303, 642);
+            this.MinimizeBox = false;
+            this.MinimumSize = new System.Drawing.Size(1303, 642);
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "RGB -> CMYK";
             ((System.ComponentModel.ISupportInitialize)(this.curvesWrapper)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.mainImageWrapper)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cyanWrapper)).EndInit();

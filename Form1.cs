@@ -26,6 +26,8 @@ namespace gk_p3
         private int mainImageHeight;
         private Color[,] mainImagePixels;
 
+        private List<Control> controlsToDisableWhenLoading;
+
         public Form1()
         {
             InitializeComponent();
@@ -39,6 +41,23 @@ namespace gk_p3
 
         private void InitiStructures()
         {
+            this.controlsToDisableWhenLoading = new List<Control>()
+            {
+                this.cyanRadioButton,
+                this.magentaRadioButton,
+                this.yellowRadioButton,
+                this.blackRadioButton,
+
+                this.importCurvesButton,
+                this.saveCurvesButton,
+
+                this.importImageButton,
+                this.saveImageButton,
+
+                this.blackWhiteCheckbox,
+                this.showAllCurvesCheckbox
+            };
+
             foreach (Settings.CMYK color in Enum.GetValues(typeof(Settings.CMYK)))
                 this.curves.TryAdd(color, new Curve(this.curvesWrapper.Width, this.curvesWrapper.Height));
 
@@ -50,6 +69,8 @@ namespace gk_p3
 
         private void LoadImage(string? filePath = null)
         {
+            this.controlsToDisableWhenLoading.ForEach(control => control.Enabled = false);
+
             this.mainImageWrapper.Image = Resources.loading;
             this.resultImageWrapper.Image = Resources.loading;
             this.currentColorImageWrapper.Image = Resources.loading;
@@ -64,10 +85,20 @@ namespace gk_p3
             {
                 this.LoadImageAsync(filePath);
                 this.SetImages();
+                this.UpdateCurrentColorImage();
+                this.controlsToDisableWhenLoading.ForEach(this.SetEnabledSafe);
                 this.curvesWrapper.Invalidate();
             });
 
             this.loadImagesThread.Start();
+        }
+
+        private void SetEnabledSafe(Control control)
+        {
+            if (control.InvokeRequired)
+                control.Invoke(this.SetEnabledSafe, new object[] { control });
+            else
+                control.Enabled = true;
         }
 
         private void LoadImageAsync(string? filePath = null)
@@ -135,7 +166,7 @@ namespace gk_p3
 
             this.cmykWrappers[color].Image = this.cmykImages[color];
 
-            if (color == this.currentColor)
+            if (color == this.currentColor && paramColor == null)
                 this.UpdateCurrentColorImage();
 
             cmykColorBmp.Dispose();
@@ -249,6 +280,9 @@ namespace gk_p3
 
         private void SetCurrentColor(Settings.CMYK color)
         {
+            if (this.loadImagesThread != null && this.loadImagesThread.IsAlive)
+                return;
+
             this.currentColor = color;
             this.moving = false;
 
@@ -293,6 +327,9 @@ namespace gk_p3
 
         private void importImageButton_Click(object sender, EventArgs e)
         {
+            if (this.loadImagesThread != null && this.loadImagesThread.IsAlive)
+                return;
+
             string workingDirectory = Environment.CurrentDirectory;
 
             OpenFileDialog openFileDialog = new OpenFileDialog
@@ -310,6 +347,9 @@ namespace gk_p3
 
         private void saveCurvesButton_Click(object sender, EventArgs e)
         {
+            if (this.loadImagesThread != null && this.loadImagesThread.IsAlive)
+                return;
+
             SaveFileDialog saveFileDialog = new SaveFileDialog();
             saveFileDialog.Filter = "json files (*.jon)|*.json";
             saveFileDialog.DefaultExt = "json";
@@ -338,6 +378,9 @@ namespace gk_p3
 
         private void importCurvesButton_Click(object sender, EventArgs e)
         {
+            if (this.loadImagesThread != null && this.loadImagesThread.IsAlive)
+                return;
+
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Filter = "json files (*.jon)|*.json";
             openFileDialog.Title = "Choose curves file to import";
@@ -372,6 +415,9 @@ namespace gk_p3
 
         private void blackWhiteCheckbox_CheckedChanged(object sender, EventArgs e)
         {
+            if (this.loadImagesThread != null && this.loadImagesThread.IsAlive)
+                return;
+
             this.blackAndWhite = this.blackWhiteCheckbox.Checked;
             this.UpdateAllCmykImages();
         }
@@ -394,6 +440,24 @@ namespace gk_p3
         private void blackWrapper_Click(object sender, EventArgs e)
         {
             this.SetCurrentColor(Settings.CMYK.BLACK);
+        }
+
+        private void saveImageButton_Click(object sender, EventArgs e)
+        {
+            if (this.loadImagesThread != null && this.loadImagesThread.IsAlive)
+                return;
+
+            SaveFileForm saveFileForm = new SaveFileForm();
+
+            saveFileForm.resultImage = (Bitmap)this.resultImageWrapper.Image;
+            saveFileForm.cyanImage = (Bitmap)this.cyanWrapper.Image;
+            saveFileForm.magentaImage = (Bitmap)this.magentaWrapper.Image;
+            saveFileForm.yellowImage = (Bitmap)this.yellowWrapper.Image;
+            saveFileForm.blackImage = (Bitmap)this.blackWrapper.Image;
+
+            saveFileForm.SetImages();
+
+            saveFileForm.ShowDialog();
         }
     }
 }
