@@ -95,12 +95,15 @@
             // 
             // cyanWrapper
             // 
+            this.cyanWrapper.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.cyanWrapper.Cursor = System.Windows.Forms.Cursors.Hand;
             this.cyanWrapper.Location = new System.Drawing.Point(20, 22);
             this.cyanWrapper.Name = "cyanWrapper";
             this.cyanWrapper.Size = new System.Drawing.Size(120, 60);
             this.cyanWrapper.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.cyanWrapper.TabIndex = 2;
             this.cyanWrapper.TabStop = false;
+            this.cyanWrapper.Click += new System.EventHandler(this.cyanWrapper_Click);
             // 
             // groupBox1
             // 
@@ -163,30 +166,36 @@
             // 
             // magentaWrapper
             // 
+            this.magentaWrapper.Cursor = System.Windows.Forms.Cursors.Hand;
             this.magentaWrapper.Location = new System.Drawing.Point(174, 22);
             this.magentaWrapper.Name = "magentaWrapper";
             this.magentaWrapper.Size = new System.Drawing.Size(120, 60);
             this.magentaWrapper.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.magentaWrapper.TabIndex = 4;
             this.magentaWrapper.TabStop = false;
+            this.magentaWrapper.Click += new System.EventHandler(this.magentaWrapper_Click);
             // 
             // yellowWrapper
             // 
+            this.yellowWrapper.Cursor = System.Windows.Forms.Cursors.Hand;
             this.yellowWrapper.Location = new System.Drawing.Point(20, 111);
             this.yellowWrapper.Name = "yellowWrapper";
             this.yellowWrapper.Size = new System.Drawing.Size(120, 60);
             this.yellowWrapper.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.yellowWrapper.TabIndex = 5;
             this.yellowWrapper.TabStop = false;
+            this.yellowWrapper.Click += new System.EventHandler(this.yellowWrapper_Click);
             // 
             // blackWrapper
             // 
+            this.blackWrapper.Cursor = System.Windows.Forms.Cursors.Hand;
             this.blackWrapper.Location = new System.Drawing.Point(174, 111);
             this.blackWrapper.Name = "blackWrapper";
             this.blackWrapper.Size = new System.Drawing.Size(120, 60);
             this.blackWrapper.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.blackWrapper.TabIndex = 6;
             this.blackWrapper.TabStop = false;
+            this.blackWrapper.Click += new System.EventHandler(this.blackWrapper_Click);
             // 
             // resultImageWrapper
             // 

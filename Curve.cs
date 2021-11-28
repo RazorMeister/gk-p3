@@ -11,10 +11,12 @@ namespace gk_p3
 {
     internal class Curve
     {
+        private const int POINT_RADIUS = 7;
+
         public Point[] Points { get; set; } = new Point[4];
 
-        private int wrapperHeight;
-        private int wrapperWidth;
+        private readonly int wrapperHeight;
+        private readonly int wrapperWidth;
 
         private SortedDictionary<double, double> coOrdinates;
 
@@ -22,6 +24,8 @@ namespace gk_p3
         {
             this.wrapperWidth = wrapperWidth;
             this.wrapperHeight = wrapperHeight;
+
+            this.Reset();
         }
 
         public Curve(int wrapperWidth, int wrapperHeight, double[] normalizedPointsX, double[] normalizedPointsY)
@@ -77,31 +81,6 @@ namespace gk_p3
             this.Points[3] = this.SanitizePoint(new Point(this.wrapperWidth, this.wrapperHeight));
 
             this.SetCoOrdinates();
-
-            foreach (var k in this.coOrdinates.Keys)
-            {
-                //Debug.WriteLine($"{k} - {this.coOrdinates[k]}");
-            }
-        }
-
-        private double BinarySearchIterative(double[] x, double n)
-        {
-            int min = 0;
-            int max = x.Length - 1;
-
-            while (min <= max)
-            {
-                int mid = (min + max) / 2;
-
-                if (Math.Abs(n - x[mid]) < 0.01)
-                    return x[++mid];
-                else if (n < x[mid])
-                    max = mid - 1;
-                else
-                    min = mid + 1;
-            }
-
-            return 0.0;
         }
 
         private void SetCoOrdinates()
@@ -157,8 +136,6 @@ namespace gk_p3
             {
                 normalizedPointsX[i] = (double)this.Points[i].X / (double)this.wrapperWidth;
                 normalizedPointsY[i] = (this.wrapperHeight - (double)this.Points[i].Y) / (double)this.wrapperHeight;
-
-                Debug.WriteLine(normalizedPointsX[i]);
             }
 
             return (normalizedPointsX, normalizedPointsY);
@@ -168,12 +145,14 @@ namespace gk_p3
         {
             List<Point> curvePoints = new List<Point>();
 
+            // Make cubic Bezier
             for (double t = 0.0; t <= 1.0; t += 0.001)
                 curvePoints.Add(new Point((int)this.GetX(t), (int)this.GetY(t)));
 
+            // Draw single control points
             if (drawPoints)
                 foreach (var point in this.Points)
-                    e.Graphics.DrawEllipse(pen, point.X - 5, point.Y - 5, 10, 10);
+                    e.Graphics.FillEllipse(pen.Brush, point.X - POINT_RADIUS, point.Y - POINT_RADIUS, POINT_RADIUS + POINT_RADIUS, POINT_RADIUS + POINT_RADIUS);
 
             // Draw arc to screen.
             e.Graphics.DrawLines(pen, curvePoints.ToArray());
