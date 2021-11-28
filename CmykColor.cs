@@ -45,22 +45,28 @@ namespace gk_p3
             this.Black = Math.Round(Math.Max(0, Math.Min(1, cB)), 2);
         }
 
-        public Color CyanToColor(Curve? curve = null)
+        public Color CyanToColor(Curve? curve = null, bool blackAndWhite = false)
         {
             double cyan = curve?.GetYByX(this.Cyan) ?? this.Cyan;
-            return Color.FromArgb(255, (int)(255 * (1 - cyan)), 255, 255);
+            int part = (int)(255 * (1 - cyan));
+
+            return blackAndWhite ? Color.FromArgb(255, part, part, part) : Color.FromArgb(255, part, 255, 255);
         }
 
-        public Color MagentaToColor(Curve? curve = null)
+        public Color MagentaToColor(Curve? curve = null, bool blackAndWhite = false)
         {
             double magenta = curve?.GetYByX(this.Magenta) ?? this.Magenta;
-            return Color.FromArgb(255, 255, (int)(255 * (1 - magenta)), 255);
+            int part = (int)(255 * (1 - magenta));
+
+            return blackAndWhite ? Color.FromArgb(255, part, part, part) : Color.FromArgb(255, 255, part, 255);
         }
 
-        public Color YellowToColor(Curve? curve = null)
+        public Color YellowToColor(Curve? curve = null, bool blackAndWhite = false)
         {
             double yellow = curve?.GetYByX(this.Yellow) ?? this.Yellow;
-            return Color.FromArgb(255, 255, 255, (int)(255 * (1 - yellow)));
+            int part = (int)(255 * (1 - yellow));
+
+            return blackAndWhite ? Color.FromArgb(255, part, part, part) : Color.FromArgb(255, 255, 255, part);
         }
 
         public Color BlackToColor(Curve? curve = null)
@@ -84,16 +90,16 @@ namespace gk_p3
             );
         }
 
-        public Color ComponentToColor(Settings.CMYK cmykColor, Curve? curve = null)
+        public Color ComponentToColor(Settings.CMYK cmykColor, Curve? curve = null, bool blackAndWhite = false)
         {
             switch (cmykColor)
             {
                 case Settings.CMYK.CYAN:
-                    return this.CyanToColor(curve);
+                    return this.CyanToColor(curve, blackAndWhite);
                 case Settings.CMYK.MAGENTA:
-                    return this.MagentaToColor(curve);
+                    return this.MagentaToColor(curve, blackAndWhite);
                 case Settings.CMYK.YELLOW:
-                    return this.YellowToColor(curve);
+                    return this.YellowToColor(curve, blackAndWhite);
                 default:
                     return this.BlackToColor(curve);
             }

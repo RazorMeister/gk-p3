@@ -18,15 +18,21 @@ namespace gk_p3
 
         private SortedDictionary<double, double> coOrdinates;
 
-        public Curve(int wrapperHeight, int wrapperWidth)
+        public Curve(int wrapperWidth, int wrapperHeight)
         {
-            this.wrapperHeight = wrapperHeight;
             this.wrapperWidth = wrapperWidth;
+            this.wrapperHeight = wrapperHeight;
+        }
 
-            this.Points[0] = this.SanitizePoint(new Point(0, 0));
-            this.Points[1] = this.SanitizePoint(new Point(200, 50));
-            this.Points[2] = this.SanitizePoint(new Point(400, 300));
-            this.Points[3] = this.SanitizePoint(new Point(675, 100));
+        public Curve(int wrapperWidth, int wrapperHeight, double[] normalizedPointsX, double[] normalizedPointsY)
+        {
+            this.wrapperWidth = wrapperWidth;
+            this.wrapperHeight = wrapperHeight;
+
+            for (int i = 0; i < normalizedPointsX.Length; i++)
+                this.Points[i] = this.SanitizePoint(new Point((int)(normalizedPointsX[i] * (double)this.wrapperWidth), (int)(normalizedPointsY[i] * (double)this.wrapperHeight)));
+        
+            this.SetCoOrdinates();
         }
 
         private double PointsDistance(Point p1, Point p2)
@@ -140,6 +146,22 @@ namespace gk_p3
                 this.Points[2].Y * 3 * Math.Pow(t, 2) * (1 - t) +
                 this.Points[3].Y * Math.Pow(t, 3)
             );
+        }
+
+        public (double[], double[]) GetNormalizedPoints()
+        {
+            double[] normalizedPointsX = new double[this.Points.Length];
+            double[] normalizedPointsY = new double[this.Points.Length];
+
+            for (int i = 0; i < this.Points.Length; i++)
+            {
+                normalizedPointsX[i] = (double)this.Points[i].X / (double)this.wrapperWidth;
+                normalizedPointsY[i] = (this.wrapperHeight - (double)this.Points[i].Y) / (double)this.wrapperHeight;
+
+                Debug.WriteLine(normalizedPointsX[i]);
+            }
+
+            return (normalizedPointsX, normalizedPointsY);
         }
 
         public void Draw(PaintEventArgs e, Pen pen, bool drawPoints = false)
