@@ -10,3 +10,5 @@ Podczas uruchamiania programu / ładowania nowego obrazka może wystąpić Inval
 Przyjąłem, że kolory z CMYK są definiowane jak double pomiędzy 0 - 1 (z dokładnością do 0.01). Tak samo podczas zapisywania punktów krzywej beziera przyjąłem dokładność 0.01, tak żeby można było w szybki sposób za pomocą X'a znaleźć wartość krzywej w tym punkcie.
 
 Serializacja krzywych odbywa się za pomocą JSON'a. Punkty są zapisywane za pomocą double w przedziale 0 - 1 (zarówno X jak i Y) i podczas importu odpowiednio skalowane do wysokości / szerokości bitmapy z krzywymi.
+
+Projekt został utworzony z użyciem .NET 6.0 (najnowsza wersja) i niestety nie jest kompatybilny z niższymi wersjami ze względu na autogenerowany kod podczas tworzenia projektu w visual studio.
