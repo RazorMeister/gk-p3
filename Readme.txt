@@ -11,4 +11,4 @@ Przyjąłem, że kolory z CMYK są definiowane jak double pomiędzy 0 - 1 (z dok
 
 Serializacja krzywych odbywa się za pomocą JSON'a. Punkty są zapisywane za pomocą double w przedziale 0 - 1 (zarówno X jak i Y) i podczas importu odpowiednio skalowane do wysokości / szerokości bitmapy z krzywymi.
 
-Projekt został utworzony z użyciem .NET 6.0 (najnowsza wersja) i niestety nie jest kompatybilny z niższymi wersjami ze względu na autogenerowany kod podczas tworzenia projektu w visual studio.
+Projekt został utworzony z użyciem .NET 6.0 (najnowsza wersja).
