@@ -1,26 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Concurrent;
 
 namespace gk_p3
 {
     internal class CmykColor
     {
-        public double Cyan { get; set; } = 0.0;
+        public double Cyan { get; set; }
         public double Magenta { get; set; }
         public double Yellow { get; set; }
         public double Black { get; set; }
 
-        public CmykColor(int cyan, int magenta, int yellow, int black)
-        {
-            this.Cyan = cyan;
-            this.Magenta = magenta;
-            this.Yellow = yellow;
-            this.Black = black;
-        }
+        public double OriginalCyan { get; set; }
+        public double OriginalMagenta { get; set; }
+        public double OriginalYellow { get; set; }
+        public double OriginalBlack { get; set; }
 
         public CmykColor(Color argbColor)
         {
@@ -39,10 +31,14 @@ namespace gk_p3
                 cY = (1 - b - cB) / (1 - cB);
             }
 
-            this.Cyan = Math.Round(Math.Max(0, Math.Min(1, cC)), 2);
-            this.Magenta = Math.Round(Math.Max(0, Math.Min(1, cM)), 2);
-            this.Yellow = Math.Round(Math.Max(0, Math.Min(1, cY)), 2);
-            this.Black = Math.Round(Math.Max(0, Math.Min(1, cB)), 2);
+            cC = 1 - r;
+            cM = 1 - g;
+            cY = 1 - b;
+
+            this.OriginalCyan = Math.Round(Math.Max(0, Math.Min(1, cC)), 2);
+            this.OriginalMagenta = Math.Round(Math.Max(0, Math.Min(1, cM)), 2);
+            this.OriginalYellow = Math.Round(Math.Max(0, Math.Min(1, cY)), 2);
+            this.OriginalBlack = Math.Round(Math.Max(0, Math.Min(1, cB)), 2);
         }
 
         public Color CyanToColor(Curve? curve = null, bool blackAndWhite = false)
@@ -77,10 +73,10 @@ namespace gk_p3
 
         public Color ToColor(Curve cyanCurve, Curve magentaCurve, Curve yellowCurve, Curve blackCurve)
         {
-            double cyan = cyanCurve.GetYByX(this.Cyan);
-            double magenta = magentaCurve.GetYByX(this.Magenta);
-            double yellow = yellowCurve.GetYByX(this.Yellow);
-            double black = blackCurve.GetYByX(this.Black);
+            double cyan = this.Cyan;
+            double magenta = this.Magenta;
+            double yellow = this.Yellow;
+            double black = this.Black;
 
             return Color.FromArgb(
                 255,
@@ -90,8 +86,20 @@ namespace gk_p3
             );
         }
 
+        public void SetNewColors(ConcurrentDictionary<Settings.CMYK, Curve> curves)
+        {
+            double kPrim = Math.Min(this.OriginalCyan, Math.Min(this.OriginalMagenta, this.OriginalYellow));
+
+            this.Cyan = Math.Max(0.0, Math.Min(1.0, this.OriginalCyan - kPrim + curves[Settings.CMYK.CYAN].GetYByX(kPrim)));
+            this.Magenta = Math.Max(0.0, Math.Min(1.0, this.OriginalMagenta - kPrim + curves[Settings.CMYK.MAGENTA].GetYByX(kPrim)));
+            this.Yellow = Math.Max(0.0, Math.Min(1.0, this.OriginalYellow - kPrim + curves[Settings.CMYK.YELLOW].GetYByX(kPrim)));
+            this.Black = Math.Max(0.0, Math.Min(1.0, curves[Settings.CMYK.BLACK].GetYByX(kPrim)));
+        }
+
         public Color ComponentToColor(Settings.CMYK cmykColor, Curve? curve = null, bool blackAndWhite = false)
         {
+            curve = null;
+
             switch (cmykColor)
             {
                 case Settings.CMYK.CYAN:

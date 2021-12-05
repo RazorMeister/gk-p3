@@ -138,6 +138,10 @@ namespace gk_p3
 
         private void UpdateAllCmykImages()
         {
+            for (int i = 1; i < this.mainImageWidth; i++)
+                for (int j = 1; j < this.mainImageHeight; j++)
+                    this.cmykImage[i, j].SetNewColors(this.curves);
+
             foreach (var color in this.cmykWrappers.Keys)
                 this.UpdateCmykImage(color);
         }
@@ -179,6 +183,10 @@ namespace gk_p3
 
         private void UpdateCurrentCurveImages()
         {
+            for (int i = 1; i < this.mainImageWidth; i++)
+                for (int j = 1; j < this.mainImageHeight; j++)
+                    this.cmykImage[i, j].SetNewColors(this.curves);
+
             Action[] methods = new Action[] {() => this.UpdateCmykImage(), this.UpdateResultImage};
             Parallel.For(0, methods.Length, (i) => methods[i]());
         }
@@ -420,6 +428,7 @@ namespace gk_p3
 
             this.blackAndWhite = this.blackWhiteCheckbox.Checked;
             this.UpdateAllCmykImages();
+            this.UpdateCurrentColorImage();
         }
 
         private void cyanWrapper_Click(object sender, EventArgs e)
@@ -458,6 +467,44 @@ namespace gk_p3
             saveFileForm.SetImages();
 
             saveFileForm.ShowDialog();
+        }
+
+        private void hundredPercentBlackButton_Click(object sender, EventArgs e)
+        {
+            this.curves[Settings.CMYK.BLACK].Reset();
+            this.curves[Settings.CMYK.CYAN].SetZeroCurve();
+            this.curves[Settings.CMYK.MAGENTA].SetZeroCurve();
+            this.curves[Settings.CMYK.YELLOW].SetZeroCurve();
+
+
+            this.curvesWrapper.Invalidate();
+            this.UpdateAllCmykImages();
+            this.UpdateCurrentColorImage();
+            this.UpdateResultImage();
+        }
+
+        private void zeroPercentBlackButton_Click(object sender, EventArgs e)
+        {
+            this.curves[Settings.CMYK.BLACK].SetZeroCurve();
+            this.curves[Settings.CMYK.CYAN].Reset();
+            this.curves[Settings.CMYK.MAGENTA].Reset();
+            this.curves[Settings.CMYK.YELLOW].Reset();
+
+
+            this.curvesWrapper.Invalidate();
+            this.UpdateAllCmykImages();
+            this.UpdateCurrentColorImage();
+            this.UpdateResultImage();
+        }
+
+        private void ucrButton_Click(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void gcrButton_Click(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
         }
     }
 }

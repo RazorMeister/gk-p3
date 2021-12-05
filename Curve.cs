@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-
+﻿
 namespace gk_p3
 {
     internal class Curve
@@ -39,6 +31,16 @@ namespace gk_p3
             this.SetCoOrdinates();
         }
 
+        public void SetZeroCurve()
+        {
+            double dx = (double)this.wrapperWidth / (this.Points.Length - 1);
+
+            for (int i = 0; i < this.Points.Length; i++)
+                this.Points[i] = this.SanitizePoint(new Point((int) (i * dx), 0));
+
+            this.SetCoOrdinates();
+        }
+
         private double PointsDistance(Point p1, Point p2)
         {
             return Math.Sqrt((p1.X - p2.X) * (p1.X - p2.X) + (p1.Y - p2.Y) * (p1.Y - p2.Y));
@@ -65,10 +67,8 @@ namespace gk_p3
         public int GetNearestPointIndex(Point p)
         {
             for (int i=0; i<Points.Length; i++)
-            {
                 if (this.PointsDistance(this.Points[i], p) < 10)
                     return i;
-            }
 
             return -1;
         }

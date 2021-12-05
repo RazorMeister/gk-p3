@@ -1,4 +1,9 @@
-﻿namespace gk_p3
+﻿
+using LiveCharts; //Core of the library
+using LiveCharts.Wpf; //The WPF controls
+using LiveCharts.WinForms; //the WinForm wrappers
+
+namespace gk_p3
 {
     partial class Form1
     {
@@ -57,6 +62,11 @@
             this.importCurvesButton = new System.Windows.Forms.Button();
             this.showAllCurvesCheckbox = new System.Windows.Forms.CheckBox();
             this.saveCurvesButton = new System.Windows.Forms.Button();
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.hundredPercentBlackButton = new System.Windows.Forms.Button();
+            this.ucrButton = new System.Windows.Forms.Button();
+            this.zeroPercentBlackButton = new System.Windows.Forms.Button();
+            this.gcrButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.curvesWrapper)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.mainImageWrapper)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cyanWrapper)).BeginInit();
@@ -69,6 +79,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.currentColorImageWrapper)).BeginInit();
             this.groupBox3.SuspendLayout();
             this.groupBox4.SuspendLayout();
+            this.groupBox5.SuspendLayout();
             this.SuspendLayout();
             // 
             // curvesWrapper
@@ -304,7 +315,7 @@
             this.groupBox3.Controls.Add(this.blackWhiteCheckbox);
             this.groupBox3.Controls.Add(this.saveImageButton);
             this.groupBox3.Controls.Add(this.importImageButton);
-            this.groupBox3.Location = new System.Drawing.Point(304, 452);
+            this.groupBox3.Location = new System.Drawing.Point(439, 452);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(132, 139);
             this.groupBox3.TabIndex = 13;
@@ -352,7 +363,7 @@
             this.groupBox4.Controls.Add(this.importCurvesButton);
             this.groupBox4.Controls.Add(this.showAllCurvesCheckbox);
             this.groupBox4.Controls.Add(this.saveCurvesButton);
-            this.groupBox4.Location = new System.Drawing.Point(152, 452);
+            this.groupBox4.Location = new System.Drawing.Point(148, 452);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(132, 139);
             this.groupBox4.TabIndex = 14;
@@ -397,11 +408,75 @@
             this.saveCurvesButton.UseVisualStyleBackColor = true;
             this.saveCurvesButton.Click += new System.EventHandler(this.saveCurvesButton_Click);
             // 
+            // groupBox5
+            // 
+            this.groupBox5.Controls.Add(this.hundredPercentBlackButton);
+            this.groupBox5.Controls.Add(this.ucrButton);
+            this.groupBox5.Controls.Add(this.zeroPercentBlackButton);
+            this.groupBox5.Controls.Add(this.gcrButton);
+            this.groupBox5.Location = new System.Drawing.Point(294, 452);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.Size = new System.Drawing.Size(132, 139);
+            this.groupBox5.TabIndex = 15;
+            this.groupBox5.TabStop = false;
+            this.groupBox5.Text = "Predefined curves";
+            // 
+            // hundredPercentBlackButton
+            // 
+            this.hundredPercentBlackButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.hundredPercentBlackButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.hundredPercentBlackButton.Location = new System.Drawing.Point(6, 15);
+            this.hundredPercentBlackButton.Name = "hundredPercentBlackButton";
+            this.hundredPercentBlackButton.Size = new System.Drawing.Size(120, 26);
+            this.hundredPercentBlackButton.TabIndex = 4;
+            this.hundredPercentBlackButton.Text = "100% black";
+            this.hundredPercentBlackButton.UseVisualStyleBackColor = true;
+            this.hundredPercentBlackButton.Click += new System.EventHandler(this.hundredPercentBlackButton_Click);
+            // 
+            // ucrButton
+            // 
+            this.ucrButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.ucrButton.Enabled = false;
+            this.ucrButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ucrButton.Location = new System.Drawing.Point(6, 75);
+            this.ucrButton.Name = "ucrButton";
+            this.ucrButton.Size = new System.Drawing.Size(120, 26);
+            this.ucrButton.TabIndex = 3;
+            this.ucrButton.Text = "UCR";
+            this.ucrButton.UseVisualStyleBackColor = true;
+            this.ucrButton.Click += new System.EventHandler(this.ucrButton_Click);
+            // 
+            // zeroPercentBlackButton
+            // 
+            this.zeroPercentBlackButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.zeroPercentBlackButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.zeroPercentBlackButton.Location = new System.Drawing.Point(6, 45);
+            this.zeroPercentBlackButton.Name = "zeroPercentBlackButton";
+            this.zeroPercentBlackButton.Size = new System.Drawing.Size(120, 26);
+            this.zeroPercentBlackButton.TabIndex = 3;
+            this.zeroPercentBlackButton.Text = "0% black";
+            this.zeroPercentBlackButton.UseVisualStyleBackColor = true;
+            this.zeroPercentBlackButton.Click += new System.EventHandler(this.zeroPercentBlackButton_Click);
+            // 
+            // gcrButton
+            // 
+            this.gcrButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.gcrButton.Enabled = false;
+            this.gcrButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.gcrButton.Location = new System.Drawing.Point(6, 107);
+            this.gcrButton.Name = "gcrButton";
+            this.gcrButton.Size = new System.Drawing.Size(120, 26);
+            this.gcrButton.TabIndex = 1;
+            this.gcrButton.Text = "GCR";
+            this.gcrButton.UseVisualStyleBackColor = true;
+            this.gcrButton.Click += new System.EventHandler(this.gcrButton_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1287, 603);
+            this.Controls.Add(this.groupBox5);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.label3);
@@ -435,6 +510,7 @@
             this.groupBox3.PerformLayout();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
+            this.groupBox5.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -470,5 +546,10 @@
         private Label label6;
         private Label label5;
         private Label label4;
+        private GroupBox groupBox5;
+        private Button hundredPercentBlackButton;
+        private Button ucrButton;
+        private Button zeroPercentBlackButton;
+        private Button gcrButton;
     }
 }
