@@ -1,6 +1,13 @@
+using System;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.Drawing;
+using System.IO;
 using System.Text.Json;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Windows.Forms;
 using gk_p3.Properties;
 
 namespace gk_p3
@@ -93,10 +100,14 @@ namespace gk_p3
             this.loadImagesThread.Start();
         }
 
+        private delegate void SetEnabledSafeDelegate(Control control);
+
         private void SetEnabledSafe(Control control)
         {
+            SetEnabledSafeDelegate d = this.SetEnabledSafe;
+           
             if (control.InvokeRequired)
-                control.Invoke(this.SetEnabledSafe, new object[] { control });
+                control.Invoke(d, new object[] { control });
             else
                 control.Enabled = true;
         }

@@ -1,4 +1,6 @@
-﻿namespace gk_p3
+﻿using System.Windows.Forms;
+
+namespace gk_p3
 {
     partial class SaveFileForm
     {

@@ -1,7 +1,6 @@
 ﻿
-using LiveCharts; //Core of the library
-using LiveCharts.Wpf; //The WPF controls
-using LiveCharts.WinForms; //the WinForm wrappers
+
+using System.Windows.Forms;
 
 namespace gk_p3
 {

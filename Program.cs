@@ -1,3 +1,6 @@
+using System;
+using System.Windows.Forms;
+
 namespace gk_p3
 {
     internal static class Program
@@ -8,7 +11,7 @@ namespace gk_p3
         [STAThread]
         static void Main()
         {
-            ApplicationConfiguration.Initialize();
+            //ApplicationConfiguration.Initialize();
             Application.Run(new Form1());
         }
     }

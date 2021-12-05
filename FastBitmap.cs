@@ -1,5 +1,7 @@
 ﻿using System.Runtime.InteropServices;
 using System.Drawing.Imaging;
+using System;
+using System.Drawing;
 
 namespace gk_p3
 {
