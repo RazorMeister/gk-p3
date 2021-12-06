@@ -9,6 +9,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using gk_p3.Properties;
+using Priority_Queue;
 
 namespace gk_p3
 {
@@ -62,7 +63,13 @@ namespace gk_p3
                 this.saveImageButton,
 
                 this.blackWhiteCheckbox,
-                this.showAllCurvesCheckbox
+                this.showAllCurvesCheckbox,
+
+                this.reduceButton,
+                this.kSlider,
+
+                this.zeroPercentBlackButton,
+                this.hundredPercentBlackButton
             };
 
             foreach (Settings.CMYK color in Enum.GetValues(typeof(Settings.CMYK)))
@@ -95,6 +102,8 @@ namespace gk_p3
                 this.UpdateCurrentColorImage();
                 this.controlsToDisableWhenLoading.ForEach(this.SetEnabledSafe);
                 this.curvesWrapper.Invalidate();
+
+                this.reduceButton.Text = "Reduce";
             });
 
             this.loadImagesThread.Start();
@@ -122,13 +131,18 @@ namespace gk_p3
             this.mainImageWidth = this.mainImage.Width;
             this.mainImageHeight = this.mainImage.Height;
 
+            this.SetMainImagePixels();
+
+            this.mainImageWrapper.Image = this.mainImage;
+        }
+
+        private void SetMainImagePixels()
+        {
             this.mainImagePixels = new Color[this.mainImageWidth, this.mainImageHeight];
 
             for (int i = 1; i < this.mainImageWidth; i++)
                 for (int j = 1; j < this.mainImageHeight; j++)
                     this.mainImagePixels[i, j] = this.mainImage.GetPixel(i, j);
-
-            this.mainImageWrapper.Image = this.mainImage;
         }
 
         private void SetImages()
@@ -516,6 +530,134 @@ namespace gk_p3
         private void gcrButton_Click(object sender, EventArgs e)
         {
             throw new NotImplementedException();
+        }
+
+        private void groupBox6_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void kSlider_Scroll(object sender, EventArgs e)
+        {
+            Settings.K = this.kSlider.Value;
+            this.kLabel.Text = $"K: {Settings.K}";
+
+            this.reduceButton.Text = "Reduce";
+            this.reduceButton.Enabled = true;
+        }
+
+        private double ColorDifference(Color a, Color b)
+        {
+            return Math.Pow(a.R - b.R, 2) + Math.Pow(a.G - b.G, 2) + Math.Pow(a.B - b.B, 2);
+        }
+
+        private Color GetClosestColor(Color a, List<Color>[] popularColors)
+        {
+            double minDistance = Double.MaxValue;
+            Color minColor = Color.Black;
+
+            for (int i = 0; i < popularColors.Length; i++)
+            {
+                foreach (var popularColor in popularColors[i])
+                {
+                    double d = this.ColorDifference(a, popularColor);
+                    if (d < minDistance)
+                    {
+                        minDistance = d;
+                        minColor = popularColor;
+                    }
+                }
+            }
+
+            return minColor;
+        }
+
+        private bool ColorInRange(Color a, Color min, Color max)
+        {
+            return (
+                // Min
+                min.R <= a.R
+                && min.G <= a.G
+                && min.B <= a.B
+
+                // Max
+                && max.R >= a.R
+                && max.G >= a.G
+                && max.B >= a.B
+            );
+        }
+
+        private void reduceButton_Click(object sender, EventArgs e)
+        {
+            this.reduceButton.Text = "Reducing...";
+
+            SimplePriorityQueue<Color, int>[] popularColors = new SimplePriorityQueue<Color, int>[8];
+
+            for (int i = 0; i < popularColors.Length; i++)
+                popularColors[i] = new SimplePriorityQueue<Color, int>();
+
+
+            Dictionary<(Color min, Color max), int> octans = new Dictionary<(Color min, Color max), int>();
+
+            int h = 255 / 2;
+
+            octans.Add((Color.FromArgb(255, 0, 0, 0), Color.FromArgb(255, h, h, h)), 0);
+            octans.Add((Color.FromArgb(255, h, 0, 0), Color.FromArgb(255, 255, h, h)), 1);
+            octans.Add((Color.FromArgb(255, 0, h, 0), Color.FromArgb(255, h, 255, h)), 2);
+            octans.Add((Color.FromArgb(255, h, h, 0), Color.FromArgb(255, 255, 255, h)), 3);
+            octans.Add((Color.FromArgb(255, 0, 0, h), Color.FromArgb(255, h, h, 255)), 4);
+            octans.Add((Color.FromArgb(255, h, 0, h ), Color.FromArgb(255, 255, h, 255)), 5);
+            octans.Add((Color.FromArgb(255, 0, h, h), Color.FromArgb(255, h, 255, 255)), 6);
+            octans.Add((Color.FromArgb(255, h, h, h), Color.FromArgb(255, 255, 255, 255)), 7);
+
+            Parallel.For(1, this.mainImageWidth, (i) => 
+            {
+                for (int j = 1; j < this.mainImageHeight; j++)
+                {
+                    var color = this.mainImagePixels[i, j];
+
+                    foreach (var value in octans)
+                    {
+                        if (this.ColorInRange(color, value.Key.min, value.Key.max))
+                        {
+                            int index = value.Value;
+                            if (popularColors[index].Contains(color))
+                                popularColors[index].UpdatePriority(color, popularColors[index].GetPriority(color) + 1);
+                            else
+                                popularColors[index].Enqueue(color, 1);
+                        }
+                    }
+                }
+            });
+
+            List<Color>[] mostPopularColors = new List<Color>[8];
+
+            for (int i = 0; i < popularColors.Length; i++)
+            {
+                mostPopularColors[i] = new List<Color>();
+
+                int to = i == popularColors.Length - 1
+                    ? Settings.K - 7 * (Settings.K / 8)
+                    : Settings.K / 8;
+
+                for (int j = 0; j < to; j++)
+                    if (popularColors[i].Count > 0)
+                        mostPopularColors[i].Add(popularColors[i].Dequeue());
+            }
+
+            Bitmap newMainImage = new Bitmap(this.mainImage);
+
+            for (int i = 1; i < this.mainImageWidth; i++)
+                for (int j = 1; j < this.mainImageHeight; j++)
+                    newMainImage.SetPixel(i, j, this.GetClosestColor(this.mainImagePixels[i, j], mostPopularColors));
+
+            this.mainImage = newMainImage;
+            this.mainImageWrapper.Image = newMainImage;
+            this.SetMainImagePixels();
+            this.SetImages();
+
+            this.reduceButton.Text = "Reduced";
+            this.reduceButton.Enabled = false;
         }
     }
 }

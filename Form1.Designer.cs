@@ -66,6 +66,10 @@ namespace gk_p3
             this.ucrButton = new System.Windows.Forms.Button();
             this.zeroPercentBlackButton = new System.Windows.Forms.Button();
             this.gcrButton = new System.Windows.Forms.Button();
+            this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.reduceButton = new System.Windows.Forms.Button();
+            this.kLabel = new System.Windows.Forms.Label();
+            this.kSlider = new System.Windows.Forms.TrackBar();
             ((System.ComponentModel.ISupportInitialize)(this.curvesWrapper)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.mainImageWrapper)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cyanWrapper)).BeginInit();
@@ -79,14 +83,17 @@ namespace gk_p3
             this.groupBox3.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.groupBox5.SuspendLayout();
+            this.groupBox6.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.kSlider)).BeginInit();
             this.SuspendLayout();
             // 
             // curvesWrapper
             // 
             this.curvesWrapper.BackColor = System.Drawing.SystemColors.AppWorkspace;
-            this.curvesWrapper.Location = new System.Drawing.Point(12, 12);
+            this.curvesWrapper.Location = new System.Drawing.Point(14, 16);
+            this.curvesWrapper.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.curvesWrapper.Name = "curvesWrapper";
-            this.curvesWrapper.Size = new System.Drawing.Size(559, 434);
+            this.curvesWrapper.Size = new System.Drawing.Size(639, 579);
             this.curvesWrapper.TabIndex = 0;
             this.curvesWrapper.TabStop = false;
             this.curvesWrapper.Paint += new System.Windows.Forms.PaintEventHandler(this.curvesWrapper_Paint);
@@ -96,9 +103,10 @@ namespace gk_p3
             // 
             // mainImageWrapper
             // 
-            this.mainImageWrapper.Location = new System.Drawing.Point(590, 12);
+            this.mainImageWrapper.Location = new System.Drawing.Point(674, 16);
+            this.mainImageWrapper.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.mainImageWrapper.Name = "mainImageWrapper";
-            this.mainImageWrapper.Size = new System.Drawing.Size(320, 200);
+            this.mainImageWrapper.Size = new System.Drawing.Size(366, 267);
             this.mainImageWrapper.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.mainImageWrapper.TabIndex = 1;
             this.mainImageWrapper.TabStop = false;
@@ -107,9 +115,10 @@ namespace gk_p3
             // 
             this.cyanWrapper.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.cyanWrapper.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.cyanWrapper.Location = new System.Drawing.Point(20, 22);
+            this.cyanWrapper.Location = new System.Drawing.Point(23, 29);
+            this.cyanWrapper.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.cyanWrapper.Name = "cyanWrapper";
-            this.cyanWrapper.Size = new System.Drawing.Size(120, 60);
+            this.cyanWrapper.Size = new System.Drawing.Size(137, 79);
             this.cyanWrapper.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.cyanWrapper.TabIndex = 2;
             this.cyanWrapper.TabStop = false;
@@ -121,9 +130,11 @@ namespace gk_p3
             this.groupBox1.Controls.Add(this.yellowRadioButton);
             this.groupBox1.Controls.Add(this.magentaRadioButton);
             this.groupBox1.Controls.Add(this.cyanRadioButton);
-            this.groupBox1.Location = new System.Drawing.Point(12, 452);
+            this.groupBox1.Location = new System.Drawing.Point(14, 603);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(121, 139);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.groupBox1.Size = new System.Drawing.Size(138, 185);
             this.groupBox1.TabIndex = 3;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Select curve";
@@ -132,9 +143,10 @@ namespace gk_p3
             // 
             this.blackRadioButton.AutoSize = true;
             this.blackRadioButton.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.blackRadioButton.Location = new System.Drawing.Point(16, 95);
+            this.blackRadioButton.Location = new System.Drawing.Point(18, 127);
+            this.blackRadioButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.blackRadioButton.Name = "blackRadioButton";
-            this.blackRadioButton.Size = new System.Drawing.Size(71, 19);
+            this.blackRadioButton.Size = new System.Drawing.Size(88, 24);
             this.blackRadioButton.TabIndex = 3;
             this.blackRadioButton.Text = "(K) Black";
             this.blackRadioButton.UseVisualStyleBackColor = true;
@@ -144,9 +156,10 @@ namespace gk_p3
             // 
             this.yellowRadioButton.AutoSize = true;
             this.yellowRadioButton.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.yellowRadioButton.Location = new System.Drawing.Point(16, 70);
+            this.yellowRadioButton.Location = new System.Drawing.Point(18, 93);
+            this.yellowRadioButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.yellowRadioButton.Name = "yellowRadioButton";
-            this.yellowRadioButton.Size = new System.Drawing.Size(59, 19);
+            this.yellowRadioButton.Size = new System.Drawing.Size(73, 24);
             this.yellowRadioButton.TabIndex = 2;
             this.yellowRadioButton.Text = "Yellow";
             this.yellowRadioButton.UseVisualStyleBackColor = true;
@@ -156,9 +169,10 @@ namespace gk_p3
             // 
             this.magentaRadioButton.AutoSize = true;
             this.magentaRadioButton.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.magentaRadioButton.Location = new System.Drawing.Point(16, 45);
+            this.magentaRadioButton.Location = new System.Drawing.Point(18, 60);
+            this.magentaRadioButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.magentaRadioButton.Name = "magentaRadioButton";
-            this.magentaRadioButton.Size = new System.Drawing.Size(72, 19);
+            this.magentaRadioButton.Size = new System.Drawing.Size(89, 24);
             this.magentaRadioButton.TabIndex = 1;
             this.magentaRadioButton.Text = "Magenta";
             this.magentaRadioButton.UseVisualStyleBackColor = true;
@@ -169,9 +183,10 @@ namespace gk_p3
             this.cyanRadioButton.AutoSize = true;
             this.cyanRadioButton.Checked = true;
             this.cyanRadioButton.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.cyanRadioButton.Location = new System.Drawing.Point(16, 20);
+            this.cyanRadioButton.Location = new System.Drawing.Point(18, 27);
+            this.cyanRadioButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.cyanRadioButton.Name = "cyanRadioButton";
-            this.cyanRadioButton.Size = new System.Drawing.Size(52, 19);
+            this.cyanRadioButton.Size = new System.Drawing.Size(62, 24);
             this.cyanRadioButton.TabIndex = 0;
             this.cyanRadioButton.TabStop = true;
             this.cyanRadioButton.Text = "Cyan";
@@ -181,9 +196,10 @@ namespace gk_p3
             // magentaWrapper
             // 
             this.magentaWrapper.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.magentaWrapper.Location = new System.Drawing.Point(174, 22);
+            this.magentaWrapper.Location = new System.Drawing.Point(199, 29);
+            this.magentaWrapper.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.magentaWrapper.Name = "magentaWrapper";
-            this.magentaWrapper.Size = new System.Drawing.Size(120, 60);
+            this.magentaWrapper.Size = new System.Drawing.Size(137, 80);
             this.magentaWrapper.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.magentaWrapper.TabIndex = 4;
             this.magentaWrapper.TabStop = false;
@@ -192,9 +208,10 @@ namespace gk_p3
             // yellowWrapper
             // 
             this.yellowWrapper.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.yellowWrapper.Location = new System.Drawing.Point(20, 111);
+            this.yellowWrapper.Location = new System.Drawing.Point(23, 148);
+            this.yellowWrapper.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.yellowWrapper.Name = "yellowWrapper";
-            this.yellowWrapper.Size = new System.Drawing.Size(120, 60);
+            this.yellowWrapper.Size = new System.Drawing.Size(137, 80);
             this.yellowWrapper.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.yellowWrapper.TabIndex = 5;
             this.yellowWrapper.TabStop = false;
@@ -203,9 +220,10 @@ namespace gk_p3
             // blackWrapper
             // 
             this.blackWrapper.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.blackWrapper.Location = new System.Drawing.Point(174, 111);
+            this.blackWrapper.Location = new System.Drawing.Point(199, 148);
+            this.blackWrapper.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.blackWrapper.Name = "blackWrapper";
-            this.blackWrapper.Size = new System.Drawing.Size(120, 60);
+            this.blackWrapper.Size = new System.Drawing.Size(137, 80);
             this.blackWrapper.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.blackWrapper.TabIndex = 6;
             this.blackWrapper.TabStop = false;
@@ -213,9 +231,10 @@ namespace gk_p3
             // 
             // resultImageWrapper
             // 
-            this.resultImageWrapper.Location = new System.Drawing.Point(590, 246);
+            this.resultImageWrapper.Location = new System.Drawing.Point(674, 328);
+            this.resultImageWrapper.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.resultImageWrapper.Name = "resultImageWrapper";
-            this.resultImageWrapper.Size = new System.Drawing.Size(320, 200);
+            this.resultImageWrapper.Size = new System.Drawing.Size(366, 267);
             this.resultImageWrapper.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.resultImageWrapper.TabIndex = 7;
             this.resultImageWrapper.TabStop = false;
@@ -230,81 +249,84 @@ namespace gk_p3
             this.groupBox2.Controls.Add(this.magentaWrapper);
             this.groupBox2.Controls.Add(this.yellowWrapper);
             this.groupBox2.Controls.Add(this.blackWrapper);
-            this.groupBox2.Location = new System.Drawing.Point(951, 12);
+            this.groupBox2.Location = new System.Drawing.Point(1087, 16);
+            this.groupBox2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(320, 200);
+            this.groupBox2.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.groupBox2.Size = new System.Drawing.Size(366, 267);
             this.groupBox2.TabIndex = 8;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "CMYK preview";
             // 
             // label7
             // 
-            this.label7.Location = new System.Drawing.Point(174, 176);
+            this.label7.Location = new System.Drawing.Point(199, 235);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(120, 21);
+            this.label7.Size = new System.Drawing.Size(137, 28);
             this.label7.TabIndex = 10;
             this.label7.Text = "(K) Black";
             this.label7.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // label6
             // 
-            this.label6.Location = new System.Drawing.Point(20, 176);
+            this.label6.Location = new System.Drawing.Point(23, 235);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(120, 21);
+            this.label6.Size = new System.Drawing.Size(137, 28);
             this.label6.TabIndex = 9;
             this.label6.Text = "Yellow";
             this.label6.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // label5
             // 
-            this.label5.Location = new System.Drawing.Point(174, 85);
+            this.label5.Location = new System.Drawing.Point(199, 113);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(120, 23);
+            this.label5.Size = new System.Drawing.Size(137, 31);
             this.label5.TabIndex = 8;
             this.label5.Text = "Magenta";
             this.label5.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // label4
             // 
-            this.label4.Location = new System.Drawing.Point(20, 85);
+            this.label4.Location = new System.Drawing.Point(23, 113);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(120, 23);
+            this.label4.Size = new System.Drawing.Size(137, 31);
             this.label4.TabIndex = 7;
             this.label4.Text = "Cyan";
             this.label4.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // currentColorImageWrapper
             // 
-            this.currentColorImageWrapper.Location = new System.Drawing.Point(951, 246);
+            this.currentColorImageWrapper.Location = new System.Drawing.Point(1087, 328);
+            this.currentColorImageWrapper.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.currentColorImageWrapper.Name = "currentColorImageWrapper";
-            this.currentColorImageWrapper.Size = new System.Drawing.Size(320, 200);
+            this.currentColorImageWrapper.Size = new System.Drawing.Size(366, 267);
             this.currentColorImageWrapper.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.currentColorImageWrapper.TabIndex = 9;
             this.currentColorImageWrapper.TabStop = false;
             // 
             // label1
             // 
-            this.label1.Location = new System.Drawing.Point(590, 215);
+            this.label1.Location = new System.Drawing.Point(674, 287);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(320, 23);
+            this.label1.Size = new System.Drawing.Size(366, 31);
             this.label1.TabIndex = 10;
             this.label1.Text = "Original image";
             this.label1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // label2
             // 
-            this.label2.Location = new System.Drawing.Point(590, 452);
+            this.label2.Location = new System.Drawing.Point(674, 603);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(320, 23);
+            this.label2.Size = new System.Drawing.Size(366, 31);
             this.label2.TabIndex = 11;
             this.label2.Text = "Result image";
             this.label2.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // label3
             // 
-            this.label3.Location = new System.Drawing.Point(951, 449);
+            this.label3.Location = new System.Drawing.Point(1087, 599);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(320, 23);
+            this.label3.Size = new System.Drawing.Size(366, 31);
             this.label3.TabIndex = 12;
             this.label3.Text = "Current curve image";
             this.label3.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -314,9 +336,11 @@ namespace gk_p3
             this.groupBox3.Controls.Add(this.blackWhiteCheckbox);
             this.groupBox3.Controls.Add(this.saveImageButton);
             this.groupBox3.Controls.Add(this.importImageButton);
-            this.groupBox3.Location = new System.Drawing.Point(439, 452);
+            this.groupBox3.Location = new System.Drawing.Point(502, 603);
+            this.groupBox3.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(132, 139);
+            this.groupBox3.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.groupBox3.Size = new System.Drawing.Size(151, 185);
             this.groupBox3.TabIndex = 13;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Image options";
@@ -325,9 +349,10 @@ namespace gk_p3
             // 
             this.blackWhiteCheckbox.AutoSize = true;
             this.blackWhiteCheckbox.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.blackWhiteCheckbox.Location = new System.Drawing.Point(17, 22);
+            this.blackWhiteCheckbox.Location = new System.Drawing.Point(19, 29);
+            this.blackWhiteCheckbox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.blackWhiteCheckbox.Name = "blackWhiteCheckbox";
-            this.blackWhiteCheckbox.Size = new System.Drawing.Size(109, 19);
+            this.blackWhiteCheckbox.Size = new System.Drawing.Size(135, 24);
             this.blackWhiteCheckbox.TabIndex = 2;
             this.blackWhiteCheckbox.Text = "Black and white";
             this.blackWhiteCheckbox.UseVisualStyleBackColor = true;
@@ -337,9 +362,10 @@ namespace gk_p3
             // 
             this.saveImageButton.Cursor = System.Windows.Forms.Cursors.Hand;
             this.saveImageButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.saveImageButton.Location = new System.Drawing.Point(6, 91);
+            this.saveImageButton.Location = new System.Drawing.Point(7, 121);
+            this.saveImageButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.saveImageButton.Name = "saveImageButton";
-            this.saveImageButton.Size = new System.Drawing.Size(120, 26);
+            this.saveImageButton.Size = new System.Drawing.Size(137, 35);
             this.saveImageButton.TabIndex = 1;
             this.saveImageButton.Text = "Save image";
             this.saveImageButton.UseVisualStyleBackColor = true;
@@ -349,9 +375,10 @@ namespace gk_p3
             // 
             this.importImageButton.Cursor = System.Windows.Forms.Cursors.Hand;
             this.importImageButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.importImageButton.Location = new System.Drawing.Point(6, 59);
+            this.importImageButton.Location = new System.Drawing.Point(7, 79);
+            this.importImageButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.importImageButton.Name = "importImageButton";
-            this.importImageButton.Size = new System.Drawing.Size(120, 26);
+            this.importImageButton.Size = new System.Drawing.Size(137, 35);
             this.importImageButton.TabIndex = 0;
             this.importImageButton.Text = "Import image";
             this.importImageButton.UseVisualStyleBackColor = true;
@@ -362,9 +389,11 @@ namespace gk_p3
             this.groupBox4.Controls.Add(this.importCurvesButton);
             this.groupBox4.Controls.Add(this.showAllCurvesCheckbox);
             this.groupBox4.Controls.Add(this.saveCurvesButton);
-            this.groupBox4.Location = new System.Drawing.Point(148, 452);
+            this.groupBox4.Location = new System.Drawing.Point(169, 603);
+            this.groupBox4.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(132, 139);
+            this.groupBox4.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.groupBox4.Size = new System.Drawing.Size(151, 185);
             this.groupBox4.TabIndex = 14;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Curve options";
@@ -373,9 +402,10 @@ namespace gk_p3
             // 
             this.importCurvesButton.Cursor = System.Windows.Forms.Cursors.Hand;
             this.importCurvesButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.importCurvesButton.Location = new System.Drawing.Point(6, 59);
+            this.importCurvesButton.Location = new System.Drawing.Point(7, 79);
+            this.importCurvesButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.importCurvesButton.Name = "importCurvesButton";
-            this.importCurvesButton.Size = new System.Drawing.Size(120, 26);
+            this.importCurvesButton.Size = new System.Drawing.Size(137, 35);
             this.importCurvesButton.TabIndex = 3;
             this.importCurvesButton.Text = "Import curves";
             this.importCurvesButton.UseVisualStyleBackColor = true;
@@ -387,9 +417,10 @@ namespace gk_p3
             this.showAllCurvesCheckbox.Checked = true;
             this.showAllCurvesCheckbox.CheckState = System.Windows.Forms.CheckState.Checked;
             this.showAllCurvesCheckbox.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.showAllCurvesCheckbox.Location = new System.Drawing.Point(19, 22);
+            this.showAllCurvesCheckbox.Location = new System.Drawing.Point(22, 29);
+            this.showAllCurvesCheckbox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.showAllCurvesCheckbox.Name = "showAllCurvesCheckbox";
-            this.showAllCurvesCheckbox.Size = new System.Drawing.Size(107, 19);
+            this.showAllCurvesCheckbox.Size = new System.Drawing.Size(132, 24);
             this.showAllCurvesCheckbox.TabIndex = 2;
             this.showAllCurvesCheckbox.Text = "Show all curves";
             this.showAllCurvesCheckbox.UseVisualStyleBackColor = true;
@@ -399,9 +430,10 @@ namespace gk_p3
             // 
             this.saveCurvesButton.Cursor = System.Windows.Forms.Cursors.Hand;
             this.saveCurvesButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.saveCurvesButton.Location = new System.Drawing.Point(6, 91);
+            this.saveCurvesButton.Location = new System.Drawing.Point(7, 121);
+            this.saveCurvesButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.saveCurvesButton.Name = "saveCurvesButton";
-            this.saveCurvesButton.Size = new System.Drawing.Size(120, 26);
+            this.saveCurvesButton.Size = new System.Drawing.Size(137, 35);
             this.saveCurvesButton.TabIndex = 1;
             this.saveCurvesButton.Text = "Save curves";
             this.saveCurvesButton.UseVisualStyleBackColor = true;
@@ -413,9 +445,11 @@ namespace gk_p3
             this.groupBox5.Controls.Add(this.ucrButton);
             this.groupBox5.Controls.Add(this.zeroPercentBlackButton);
             this.groupBox5.Controls.Add(this.gcrButton);
-            this.groupBox5.Location = new System.Drawing.Point(294, 452);
+            this.groupBox5.Location = new System.Drawing.Point(336, 603);
+            this.groupBox5.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(132, 139);
+            this.groupBox5.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.groupBox5.Size = new System.Drawing.Size(151, 185);
             this.groupBox5.TabIndex = 15;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Predefined curves";
@@ -424,9 +458,10 @@ namespace gk_p3
             // 
             this.hundredPercentBlackButton.Cursor = System.Windows.Forms.Cursors.Hand;
             this.hundredPercentBlackButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.hundredPercentBlackButton.Location = new System.Drawing.Point(6, 15);
+            this.hundredPercentBlackButton.Location = new System.Drawing.Point(7, 20);
+            this.hundredPercentBlackButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.hundredPercentBlackButton.Name = "hundredPercentBlackButton";
-            this.hundredPercentBlackButton.Size = new System.Drawing.Size(120, 26);
+            this.hundredPercentBlackButton.Size = new System.Drawing.Size(137, 35);
             this.hundredPercentBlackButton.TabIndex = 4;
             this.hundredPercentBlackButton.Text = "100% black";
             this.hundredPercentBlackButton.UseVisualStyleBackColor = true;
@@ -437,9 +472,10 @@ namespace gk_p3
             this.ucrButton.Cursor = System.Windows.Forms.Cursors.Hand;
             this.ucrButton.Enabled = false;
             this.ucrButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.ucrButton.Location = new System.Drawing.Point(6, 75);
+            this.ucrButton.Location = new System.Drawing.Point(7, 100);
+            this.ucrButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.ucrButton.Name = "ucrButton";
-            this.ucrButton.Size = new System.Drawing.Size(120, 26);
+            this.ucrButton.Size = new System.Drawing.Size(137, 35);
             this.ucrButton.TabIndex = 3;
             this.ucrButton.Text = "UCR";
             this.ucrButton.UseVisualStyleBackColor = true;
@@ -449,9 +485,10 @@ namespace gk_p3
             // 
             this.zeroPercentBlackButton.Cursor = System.Windows.Forms.Cursors.Hand;
             this.zeroPercentBlackButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.zeroPercentBlackButton.Location = new System.Drawing.Point(6, 45);
+            this.zeroPercentBlackButton.Location = new System.Drawing.Point(7, 60);
+            this.zeroPercentBlackButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.zeroPercentBlackButton.Name = "zeroPercentBlackButton";
-            this.zeroPercentBlackButton.Size = new System.Drawing.Size(120, 26);
+            this.zeroPercentBlackButton.Size = new System.Drawing.Size(137, 35);
             this.zeroPercentBlackButton.TabIndex = 3;
             this.zeroPercentBlackButton.Text = "0% black";
             this.zeroPercentBlackButton.UseVisualStyleBackColor = true;
@@ -462,19 +499,70 @@ namespace gk_p3
             this.gcrButton.Cursor = System.Windows.Forms.Cursors.Hand;
             this.gcrButton.Enabled = false;
             this.gcrButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.gcrButton.Location = new System.Drawing.Point(6, 107);
+            this.gcrButton.Location = new System.Drawing.Point(7, 143);
+            this.gcrButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.gcrButton.Name = "gcrButton";
-            this.gcrButton.Size = new System.Drawing.Size(120, 26);
+            this.gcrButton.Size = new System.Drawing.Size(137, 35);
             this.gcrButton.TabIndex = 1;
             this.gcrButton.Text = "GCR";
             this.gcrButton.UseVisualStyleBackColor = true;
             this.gcrButton.Click += new System.EventHandler(this.gcrButton_Click);
             // 
+            // groupBox6
+            // 
+            this.groupBox6.Controls.Add(this.reduceButton);
+            this.groupBox6.Controls.Add(this.kLabel);
+            this.groupBox6.Controls.Add(this.kSlider);
+            this.groupBox6.Location = new System.Drawing.Point(674, 630);
+            this.groupBox6.Name = "groupBox6";
+            this.groupBox6.Size = new System.Drawing.Size(157, 158);
+            this.groupBox6.TabIndex = 18;
+            this.groupBox6.TabStop = false;
+            this.groupBox6.Text = "Popularity algorithm settings";
+            this.groupBox6.Enter += new System.EventHandler(this.groupBox6_Enter);
+            // 
+            // reduceButton
+            // 
+            this.reduceButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.reduceButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.reduceButton.Location = new System.Drawing.Point(6, 115);
+            this.reduceButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.reduceButton.Name = "reduceButton";
+            this.reduceButton.Size = new System.Drawing.Size(137, 35);
+            this.reduceButton.TabIndex = 2;
+            this.reduceButton.Text = "Reduce";
+            this.reduceButton.UseVisualStyleBackColor = true;
+            this.reduceButton.Click += new System.EventHandler(this.reduceButton_Click);
+            // 
+            // kLabel
+            // 
+            this.kLabel.Location = new System.Drawing.Point(6, 83);
+            this.kLabel.Name = "kLabel";
+            this.kLabel.Size = new System.Drawing.Size(137, 25);
+            this.kLabel.TabIndex = 1;
+            this.kLabel.Text = "K: 16";
+            this.kLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // kSlider
+            // 
+            this.kSlider.LargeChange = 8;
+            this.kSlider.Location = new System.Drawing.Point(6, 45);
+            this.kSlider.Maximum = 80;
+            this.kSlider.Minimum = 8;
+            this.kSlider.Name = "kSlider";
+            this.kSlider.Size = new System.Drawing.Size(137, 56);
+            this.kSlider.SmallChange = 8;
+            this.kSlider.TabIndex = 1;
+            this.kSlider.TickFrequency = 8;
+            this.kSlider.Value = 16;
+            this.kSlider.Scroll += new System.EventHandler(this.kSlider_Scroll);
+            // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1287, 603);
+            this.ClientSize = new System.Drawing.Size(1469, 793);
+            this.Controls.Add(this.groupBox6);
             this.Controls.Add(this.groupBox5);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox3);
@@ -487,10 +575,11 @@ namespace gk_p3
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.mainImageWrapper);
             this.Controls.Add(this.curvesWrapper);
+            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(1303, 642);
+            this.MaximumSize = new System.Drawing.Size(1487, 840);
             this.MinimizeBox = false;
-            this.MinimumSize = new System.Drawing.Size(1303, 642);
+            this.MinimumSize = new System.Drawing.Size(1487, 840);
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "RGB -> CMYK";
@@ -510,6 +599,9 @@ namespace gk_p3
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
             this.groupBox5.ResumeLayout(false);
+            this.groupBox6.ResumeLayout(false);
+            this.groupBox6.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.kSlider)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -550,5 +642,9 @@ namespace gk_p3
         private Button ucrButton;
         private Button zeroPercentBlackButton;
         private Button gcrButton;
+        private GroupBox groupBox6;
+        private Label kLabel;
+        private TrackBar kSlider;
+        private Button reduceButton;
     }
 }

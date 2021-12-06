@@ -10,5 +10,7 @@ namespace gk_p3
             YELLOW = 2,
             BLACK = 3
         }
+
+        public static int K { get; set; } = 16;
     }
 }
